@@ -1,0 +1,808 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MagicBell REST API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.magicbell.com",
+      "description": "MagicBell REST API Base URL"
+    }
+  ],
+  "paths": {
+    "/notifications": {
+      "post": {
+        "operationId": "create-notification",
+        "tags": [
+          "real-time"
+        ],
+        "summary": "Create notifications",
+        "description": "Send a notification to one or multiple users. You can identify users by their email address or by an external_id.\n\nYou don't have to import your users into MagicBell. If a user does not exist we'll create it automatically.\n\nThe new notification will be shown in the notification inbox of each recipient in real-time. It will also be delivered to each recipient through all channels your have enabled for your MagicBell project.",
+        "security": [
+          {
+            "AuthAPIKeyAuth": [],
+            "AuthAPISecretAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WrappedNotification"
+              },
+              "example": {
+                "notification": {
+                  "title": "We're processing your order",
+                  "content": "<p>Thank you for your order. We'll notify you when these items are ready.</p>",
+                  "category": "order_created",
+                  "topic": "order:33098",
+                  "recipients": [
+                    {
+                      "email": "dan@example.com"
+                    },
+                    {
+                      "external_id": "83d987a-83fd034"
+                    },
+                    {
+                      "matches": "custom_attributes.order.id = 88492"
+                    }
+                  ],
+                  "overrides": {
+                    "email": {
+                      "title": "[MagicBell] We're processing your order",
+                      "content": "Thank you for your order. If you need help, or have any questions please don't hesitate to reach out to us directly at hello@magicbell.io"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notification": {
+                      "$ref": "#/components/schemas/CreatedNotificationBroadcast"
+                    }
+                  }
+                },
+                "example": {
+                  "notification": {
+                    "id": "ffffff66-ea4f-4da2-afc6-84148b51657a",
+                    "title": "We're processing your order",
+                    "content": "<p>Thank you for your order. We'll notify you when these items are ready.</p>",
+                    "action_url": null,
+                    "category": "order_created",
+                    "topic": "order:33098",
+                    "custom_attributes": null,
+                    "sent_at": 1625853246
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "description": "List of validation errors",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "description": "Error message"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "errors": [
+                    {
+                      "message": "Param 'notification.title' is missing"
+                    },
+                    {
+                      "message": "Param 'notification.recipients' is missing"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "operationId": "create-user",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a user",
+        "description": "Create a user. Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.\n\nThe external id, if provided, must be unique to the user.",
+        "security": [
+          {
+            "AuthAPIKeyAuth": [],
+            "AuthAPISecretAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WrappedUser"
+              },
+              "example": {
+                "user": {
+                  "external_id": "56780",
+                  "email": "hana@supportbee.com",
+                  "first_name": "Hana",
+                  "last_name": "Mohan",
+                  "custom_attributes": {
+                    "plan": "enterprise",
+                    "pricing_version": "v10",
+                    "preferred_pronoun": "She"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedUser"
+                },
+                "example": {
+                  "user": {
+                    "id": "7fb3ce9f-a866-4dff-8ce8-2f64f7c5ed4c",
+                    "external_id": "56780",
+                    "email": "hana@supportbee.com",
+                    "first_name": "Hana",
+                    "last_name": "Mohan",
+                    "custom_attributes": {
+                      "plan": "enterprise",
+                      "pricing_version": "v10",
+                      "preferred_pronoun": "She"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "Param 'user' must have an external id or an email so MagicBell can uniquely identify the user"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "put": {
+        "operationId": "update-user",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update a user",
+        "description": "Update a user's data. If you identify users by their email addresses, you need to update the MagicBell data, so this user can still access their notifications.",
+        "security": [
+          {
+            "AuthAPIKeyAuth": [],
+            "AuthAPISecretAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "The user id is the MagicBell user id. Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WrappedUser"
+              },
+              "example": {
+                "user": {
+                  "email": "hana@magicbell.io"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedUser"
+                },
+                "example": {
+                  "user": {
+                    "id": "7fb3ce9f-a866-4dff-8ce8-2f64f7c5ed4c",
+                    "external_id": "56780",
+                    "email": "hana@magicbell.io",
+                    "first_name": "Hana",
+                    "last_name": "Mohan",
+                    "custom_attributes": {
+                      "plan": "enterprise",
+                      "pricing_version": "v10",
+                      "preferred_pronoun": "She"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "Param 'notification_preferences.categories' is missing"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "A user with the the given id doesn't exist"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete-user",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete a user",
+        "description": "Delete a user by id, email or external_id.\n\nWe will delete the user completely 7 days after. If the user makes a request to the API, the deletion will be canceled. This will happen when the notification inbox for this user is loaded in your app, for example.",
+        "security": [
+          {
+            "AuthAPIKeyAuth": [],
+            "AuthAPISecretAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "The user id is the MagicBell user id. Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "A user with the the given id doesn't exist"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "x_magicbell_api_key_header": {
+        "in": "header",
+        "name": "X-MAGICBELL-API-KEY",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "API key of your MagicBell project."
+      },
+      "x_magicbell_api_secret_header": {
+        "in": "header",
+        "name": "X-MAGICBELL-API-SECRET",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "API secret of your MagicBell project."
+      },
+      "x_magicbell_user_email_header": {
+        "in": "header",
+        "name": "X-MAGICBELL-USER-EMAIL",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "Email address of the user. Provide the X-MAGICBELL-USER-EXTERNAL-ID header instead if you identify users by ID."
+      },
+      "x_magicbell_user_external_id_header": {
+        "in": "header",
+        "name": "X-MAGICBELL-USER-EXTERNAL-ID",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "ID of the user. Provide the X-MAGICBELL-USER-EMAIL header instead if you identify users by email."
+      },
+      "x_magicbell_user_hmac_header": {
+        "in": "header",
+        "name": "X-MAGICBELL-USER-HMAC",
+        "schema": {
+          "type": "string"
+        },
+        "description": "HMAC calculated with the API secret and ID, or email, of the user."
+      },
+      "notification_id": {
+        "in": "path",
+        "name": "notification_id",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "ID of the user notification.\nThe ID of a user notification can be obtained from the \"Fetch user notifications\" API endpoint or from push events sent to the MagicBell React library.\n"
+      }
+    },
+    "schemas": {
+      "UserPreferencesCategory": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "boolean",
+            "description": "A flag to enable or disable email messages for this category when a new notification is created."
+          },
+          "in_app": {
+            "type": "boolean",
+            "description": "Whether to send new notifications to the notification inbox or not."
+          },
+          "mobile_push": {
+            "type": "boolean",
+            "description": "A flag to enable or disable mobile push notifications for this category when a new notification is created."
+          },
+          "web_push": {
+            "type": "boolean",
+            "description": "A flag to enable or disable browser push notifications for this category when a new notification is created."
+          }
+        }
+      },
+      "NotificationPreferences": {
+        "type": "object",
+        "properties": {
+          "new_message": {
+            "$ref": "#/components/schemas/UserPreferencesCategory",
+            "description": "Preferences for notifications of the \"new_message\" category."
+          }
+        }
+      },
+      "NotificationPreferencesCategories": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "$ref": "#/components/schemas/NotificationPreferences",
+            "description": "Preferences for notifications based on categories."
+          }
+        }
+      },
+      "WrappedNotificationPreferences": {
+        "type": "object",
+        "properties": {
+          "notification_preferences": {
+            "$ref": "#/components/schemas/NotificationPreferencesCategories"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "external_id": {
+            "type": "string",
+            "description": "A unique string that MagicBell can utilize to identify the user uniquely. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable."
+          },
+          "email": {
+            "type": "string",
+            "description": "The user's email"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The user's first name"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The user's last name"
+          },
+          "custom_attributes": {
+            "type": "object",
+            "description": "Any customer attributes that you'd like to associate with the user. You may want to use these attributes later when writing email templates, for example."
+          }
+        }
+      },
+      "WrappedUser": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "Recipient": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The user's email"
+          },
+          "external_id": {
+            "type": "string",
+            "description": "A unique string that MagicBell can utilize to uniquely identify the user. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable."
+          },
+          "matches": {
+            "type": "string",
+            "description": "An SQL-like expression to match users by their stored attributes. Set it to \"*\" to send a notification to all users."
+          }
+        }
+      },
+      "Recipients": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Recipient"
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the notification.",
+            "nullable": false
+          },
+          "category": {
+            "type": "string",
+            "description": "Category the notification belongs to. This is useful to allow users to set their preferences.",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the notification. If you provide HTML content, the notification inbox will render it correctly.",
+            "nullable": true
+          },
+          "action_url": {
+            "type": "string",
+            "format": "url",
+            "description": "A URL to redirect the user to when they click the notification in their notification inbox.",
+            "nullable": true
+          },
+          "recipients": {
+            "$ref": "#/components/schemas/Recipients",
+            "description": "Users to send the notification to. You can specify up to 1000 users at once. Use matches to send a notification to everyone.",
+            "nullable": false,
+            "minItems": 1,
+            "maxItems": 1000
+          },
+          "custom_attributes": {
+            "type": "object",
+            "description": "Set of key-value pairs that you can attach to a notification. It accepts objects for the value of a key.\n\nYou can use it to share data between channels or to render a custom UI.",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "topic": {
+            "type": "string",
+            "description": "Topic the notification belongs to. This is useful to create threads.",
+            "nullable": true
+          },
+          "overrides": {
+            "type": "object",
+            "description": "Optional overrides to configure notifications per target destination",
+            "nullable": true,
+            "properties": {
+              "channels": {
+                "type": "object",
+                "description": "Overrides for specific channels",
+                "properties": {
+                  "in_app": {
+                    "$ref": "#/components/schemas/ChannelOverrides"
+                  },
+                  "email": {
+                    "$ref": "#/components/schemas/ChannelOverrides"
+                  },
+                  "web_push": {
+                    "$ref": "#/components/schemas/ChannelOverrides"
+                  },
+                  "mobile_push": {
+                    "$ref": "#/components/schemas/ChannelOverrides"
+                  }
+                }
+              },
+              "providers": {
+                "type": "object",
+                "description": "Overrides for specific providers (Sendgrid, Postmark, APNs, etc)",
+                "properties": {
+                  "sendgrid": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can pass on to Sendgrid. Applied only if it is configured for your project."
+                  },
+                  "mailgun": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can pass on to Mailgun. Applied only if it is configured for your project."
+                  },
+                  "postmark": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can pass on to Postmark. Applied only if it is configured for your project."
+                  },
+                  "ios": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can pass on to APNs. Applied only if it is configured for your project."
+                  },
+                  "android": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can pass on to FCM. Applied only if it is configured for your project."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "title",
+          "recipients"
+        ]
+      },
+      "ChannelOverrides": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Overriden title for this channel"
+          },
+          "content": {
+            "type": "string",
+            "description": "Overriden content for this channel"
+          },
+          "action_url": {
+            "type": "string",
+            "description": "Overriden action_url for this channel"
+          }
+        }
+      },
+      "WrappedNotification": {
+        "type": "object",
+        "properties": {
+          "notification": {
+            "$ref": "#/components/schemas/Notification"
+          }
+        }
+      },
+      "NotificationBroadcast": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Overriden action_url"
+          },
+          "recipients": {
+            "description": "Recipients of the notification",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recipient"
+            }
+          },
+          "category": {
+            "type": "string",
+            "description": "Category the notification belongs to"
+          },
+          "topic": {
+            "type": "string",
+            "description": "Topic the notification belongs to"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the notification"
+          },
+          "action_url": {
+            "type": "string",
+            "format": "url",
+            "description": "A URL to redirect the user to when they click the notification in their notification inbox."
+          },
+          "custom_attributes": {
+            "type": "object",
+            "description": "Set of key-value pairs that you can attach to a notification",
+            "nullable": true,
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "title",
+          "recipients"
+        ]
+      },
+      "CreatedNotificationBroadcast": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Notifications": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "integer",
+            "description": "ID of the MagicBell project these notifications belong to.",
+            "readOnly": true
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of notifications for this user.",
+            "readOnly": true
+          },
+          "per_page": {
+            "type": "integer",
+            "description": "Number of notifications per page.",
+            "readOnly": true
+          },
+          "total_pages": {
+            "type": "integer",
+            "description": "Total number of pages.",
+            "readOnly": true
+          },
+          "current_page": {
+            "type": "integer",
+            "description": "Number of the page returned.",
+            "readOnly": true
+          },
+          "unseen_count": {
+            "type": "integer",
+            "description": "Number of unseen notifications. Any filters applied affect this number.",
+            "readOnly": true
+          },
+          "unread_count": {
+            "type": "integer",
+            "description": "Number of unread notifications. Any filters applied affect this number.",
+            "readOnly": true
+          },
+          "notifications": {
+            "type": "array",
+            "description": "List of all notifications in the current page",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          }
+        }
+      },
+      "WrappedPushSubscription": {
+        "type": "object",
+        "properties": {
+          "push_subscription": {
+            "$ref": "#/components/schemas/PushSubscription"
+          }
+        }
+      },
+      "CreatedPushSubscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "device_token": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          }
+        }
+      },
+      "PushSubscription": {
+        "type": "object",
+        "properties": {
+          "device_token": {
+            "type": "string",
+            "description": "Token that identifies the device. This is usually generated automatically by your app once installed."
+          },
+          "platform": {
+            "type": "string",
+            "description": "The platform where the device token was generated from. This value is used to determine the delivery mechanism for mobile push notifications. Either 'ios', 'android' or 'safari'."
+          },
+          "app_bundle_id": {
+            "type": "string",
+            "description": "The bundle ID of your app. This value is used to determine the delivery mechanism for mobile push notifications based on your workflow so that you can link several mobile applications to one project."
+          }
+        },
+        "required": [
+          "device_token",
+          "platform"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "AuthAPIKeyAuth": {
+        "type": "apiKey",
+        "name": "X-MAGICBELL-API-KEY",
+        "in": "header"
+      },
+      "AuthAPISecretAuth": {
+        "type": "apiKey",
+        "name": "X-MAGICBELL-API-SECRET",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "AuthAPIKeyAuth": []
+    },
+    {
+      "AuthAPISecretAuth": []
+    }
+  ],
+  "x-explorer-enabled": false,
+  "x-proxy-enabled": true,
+  "x-samples-enabled": true,
+  "x-samples-languages": [
+    "curl",
+    "node",
+    "javascript",
+    "ruby",
+    "python"
+  ],
+  "x-si-base": "./api_docs.yml",
+  "x-github-repo": "magicbell-io/backend",
+  "x-github-sha": "57802f402dea96ee7d34833e4cd17733de299aef"
+}
