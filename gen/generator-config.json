@@ -1,8 +1,0 @@
-{
-  "!!source": "https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/python.md",
-  "packageName": "magicbell",
-  "projectName": "magicbell",
-  "packageVersion": "1.0.0",
-  "library": "asyncio",
-  "enablePostProcessFile": true
-}
