@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python_version: ["3.8", "3.9", "3.10"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup nox
+        uses: excitedleigh/setup-nox@v2
+      - name: Run tests
+        run: nox -s test-${{ matrix.python_version }}
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup nox
+        uses: excitedleigh/setup-nox@v2
+      - name: Run lint
+        run: nox -s lint
