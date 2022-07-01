@@ -10,9 +10,11 @@ from .model import (  # noqa: F401
     Project,
     ProjectInput,
     Recipient,
+    User,
     WrappedCreatedNotificationBroadcast,
     WrappedNotification,
     WrappedProject,
     WrappedProjectInput,
     WrappedProjects,
+    WrappedUser,
 )

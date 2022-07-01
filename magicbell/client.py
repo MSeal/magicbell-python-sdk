@@ -45,7 +45,7 @@ class MagicBell:
 
         self.projects = ProjectAPI(self.http_client, self.configuration)
         self.realtime = RealtimeAPI(self.http_client, self.configuration)
-        self.user = UserAPI(self.http_client, self.configuration)
+        self.users = UserAPI(self.http_client, self.configuration)
 
     async def __aenter__(self):
         await self.http_client.__aenter__()

@@ -6,6 +6,7 @@ from ._base import BaseModel
 
 
 class User(BaseModel):
+    id: typing.Optional[str] = Field(description="The user's MagicBell ID (readonly).")
     external_id: typing.Optional[str] = Field(
         description="A unique string that MagicBell can utilize to identify the user uniquely. "
         "We recommend setting this attribute to the ID of the user in your database. "
