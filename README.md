@@ -1,8 +1,10 @@
-# magicbell
+# magicbell-python-sdk
 
 ![magicbell logo purple](./assets/MB_logo_Purple_2800x660.png)
 
 An unofficial Python SDK for [MagicBell](https://magicbell.com).
+
+[Install](#installation--usage) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
 
 - API Version: 1.0
 - Package Version: 0.1.0
@@ -96,3 +98,11 @@ from magicbell.configuration import Configuration
 
 config = Configuration()
 ```
+
+### Examples
+
+For more examples see the [`examples` directory](./examples).
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
