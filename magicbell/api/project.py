@@ -14,14 +14,10 @@ class ProjectAPI(BaseAPI):
         """List all projects in a workspace, returning `WrappedProjects`."""
         return (await self.list_projects_detailed(workspace_id)).parsed
 
-    async def list_projects_detailed(
-        self, workspace_id: int
-    ) -> Response[WrappedProjects]:
+    async def list_projects_detailed(self, workspace_id: int) -> Response[WrappedProjects]:
         """List all projects in a workspace, returning a `Response`."""
         url = f"/workspaces/{workspace_id}/projects"
-        response = await self.client.get(
-            url, headers=self.configuration.get_user_headers()
-        )
+        response = await self.client.get(url, headers=self.configuration.get_user_headers())
         return build_response(response=response, out_type=WrappedProjects)
 
     async def get_project(self, workspace_id: int, project_id: int) -> WrappedProject:
@@ -33,9 +29,7 @@ class ProjectAPI(BaseAPI):
     ) -> Response[WrappedProject]:
         """Get a project, returning a `Response`."""
         url = f"/workspaces/{workspace_id}/projects/{project_id}"
-        response = await self.client.get(
-            url, headers=self.configuration.get_user_headers()
-        )
+        response = await self.client.get(url, headers=self.configuration.get_user_headers())
         return build_response(response=response, out_type=WrappedProject)
 
     async def create_project(
@@ -60,9 +54,7 @@ class ProjectAPI(BaseAPI):
         self, workspace_id: int, project_id: int, project_input: WrappedProjectInput
     ) -> WrappedProject:
         """Update a project, returning `WrappedProject`."""
-        return (
-            await self.update_project_detailed(workspace_id, project_id, project_input)
-        ).parsed
+        return (await self.update_project_detailed(workspace_id, project_id, project_input)).parsed
 
     async def update_project_detailed(
         self, workspace_id: int, project_id: int, project_input: WrappedProjectInput
@@ -85,7 +77,5 @@ class ProjectAPI(BaseAPI):
     ) -> Response[typing.Type[None]]:
         """Delete a project, returning a `Response`."""
         url = f"/workspaces/{workspace_id}/projects/{project_id}"
-        response = await self.client.delete(
-            url, headers=self.configuration.get_user_headers()
-        )
+        response = await self.client.delete(url, headers=self.configuration.get_user_headers())
         return build_response(response=response, out_type=None)

@@ -23,9 +23,7 @@ def lint(session: nox_poetry.Session):
 @nox_poetry.session(python="3.8")
 def flake8(session: nox_poetry.Session):
     session.install("flake8")
-    session.run(
-        "flake8", *LINT_PATHS, "--count", "--show-source", "--statistics", "--benchmark"
-    )
+    session.run("flake8", *LINT_PATHS, "--count", "--show-source", "--statistics", "--benchmark")
 
 
 @nox_poetry.session(python="3.8")

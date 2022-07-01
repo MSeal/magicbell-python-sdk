@@ -58,12 +58,8 @@ class WrappedNotification(BaseModel):
 
 class ChannelOverrides(BaseModel):
     title: typing.Optional[str] = Field(description="Overridden title for this channel")
-    content: typing.Optional[str] = Field(
-        description="Overridden content for this channel"
-    )
-    action_url: typing.Optional[str] = Field(
-        description="Overridden action URL for this channel"
-    )
+    content: typing.Optional[str] = Field(description="Overridden content for this channel")
+    action_url: typing.Optional[str] = Field(description="Overridden action URL for this channel")
 
 
 class NotificationChannelsOverrides(BaseModel):

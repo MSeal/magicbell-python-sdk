@@ -19,9 +19,7 @@ class RealtimeAPI(BaseAPI):
         https://www.magicbell.com/docs/rest-api/idempotent-requests
         """
         return (
-            await self.create_notification_detailed(
-                wrapped_notification, idempotency_key
-            )
+            await self.create_notification_detailed(wrapped_notification, idempotency_key)
         ).parsed
 
     async def create_notification_detailed(
@@ -35,11 +33,7 @@ class RealtimeAPI(BaseAPI):
         """
         response = await self.client.post(
             "/notifications",
-            headers=self.configuration.get_general_headers(
-                idempotency_key=idempotency_key
-            ),
+            headers=self.configuration.get_general_headers(idempotency_key=idempotency_key),
             data=wrapped_notification.json(exclude_unset=True),  # type: ignore
         )
-        return build_response(
-            response=response, out_type=WrappedCreatedNotificationBroadcast
-        )
+        return build_response(response=response, out_type=WrappedCreatedNotificationBroadcast)
