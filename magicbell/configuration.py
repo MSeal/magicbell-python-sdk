@@ -45,24 +45,32 @@ class Configuration(BaseSettings):
     class Config:
         env_prefix = "magicbell_"
 
-    def get_general_headers(self) -> typing.Dict[str, str]:
+    def get_general_headers(
+        self, idempotency_key: typing.Optional[str] = None
+    ) -> typing.Dict[str, str]:
         """Return headers used for non-project related requests.
 
         This includes `self.api_key` as `X-MAGICBELL-API-KEY` and `self.api_secret` as `X-MAGICBELL-API-SECRET`.  # noqa: E501
         """
         headers = self._get_base_headers()
+        if idempotency_key:
+            headers["IDEMPOTENCY-KEY"] = idempotency_key
         if self.api_key:
             headers["X-MAGICBELL-API-KEY"] = self.api_key
         if self.api_secret:
             headers["X-MAGICBELL-API-SECRET"] = self.api_secret
         return headers
 
-    def get_user_headers(self) -> typing.Dict[str, str]:
+    def get_user_headers(
+        self, idempotency_key: typing.Optional[str] = None
+    ) -> typing.Dict[str, str]:
         """Return headers when a user JWT is required, such as projects.
 
         This includes `self.user_jwt` as `Authorization: Bearer <JWT>`.
         """
         headers = self._get_base_headers()
+        if idempotency_key:
+            headers["IDEMPOTENCY-KEY"] = idempotency_key
         if self.user_jwt:
             headers["Authorization"] = f"Bearer {self.user_jwt}"
         return headers

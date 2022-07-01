@@ -2,8 +2,8 @@ import typing
 
 import httpx
 
-from magicbell import Configuration
-from magicbell.api.project import ProjectAPI
+from .api import ProjectAPI, RealtimeAPI
+from .configuration import Configuration
 
 
 class MagicBell:
@@ -20,6 +20,11 @@ class MagicBell:
     >>> async with MagicBell(Configuration(api_key="my-api-key", api_secret="my-secret")) as mb:
     >>>    ...
     """
+
+    configuration: Configuration
+    http_client: httpx.AsyncClient
+    projects: ProjectAPI
+    realtime: RealtimeAPI
 
     def __init__(self, configuration: typing.Optional[Configuration] = None):
         """Create a new MagicBell instance.
@@ -39,6 +44,7 @@ class MagicBell:
         )
 
         self.projects = ProjectAPI(self.http_client, self.configuration)
+        self.realtime = RealtimeAPI(self.http_client, self.configuration)
 
     async def __aenter__(self):
         await self.http_client.__aenter__()
