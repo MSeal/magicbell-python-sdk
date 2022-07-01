@@ -9,7 +9,7 @@ nox.options.sessions = ["lint", "tests"]
 
 @nox_poetry.session(python=["3.8", "3.9", "3.10"])
 def test(session: nox_poetry.Session):
-    session.install(".")
+    session.run_always("poetry", "install", external=True)
     session.run("pytest")
 
 
