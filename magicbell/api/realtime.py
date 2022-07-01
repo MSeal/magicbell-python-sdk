@@ -1,9 +1,6 @@
 import typing
 
-from ..model.notification import (
-    WrappedCreatedNotificationBroadcast,
-    WrappedNotification,
-)
+from ..model.notification import WrappedCreatedNotificationBroadcast, WrappedNotification
 from ..model.response import Response
 from ._base import BaseAPI
 from ._parsing import build_response
