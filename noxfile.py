@@ -30,7 +30,7 @@ def flake8(session: nox_poetry.Session):
 
 @nox_poetry.session(python="3.8")
 def black_check(session: nox_poetry.Session):
-    session.install("flake8")
+    session.install("black")
     session.run("black", "--check", *LINT_PATHS)
 
 
