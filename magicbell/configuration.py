@@ -14,7 +14,7 @@ class Configuration(BaseSettings):
     Examples
     --------
     >>> import os
-    >>> from magicbell import Configuration
+    >>> from magicbell.configuration import Configuration
     >>> config = Configuration(api_key="my-api-key", api_secret="my-api-secret")
     >>> os.environ["MAGICBELL_API_KEY"] = "my-api-key"
     >>> os.environ["MAGICBELL_API_SECRET"] = "my-api-secret"
