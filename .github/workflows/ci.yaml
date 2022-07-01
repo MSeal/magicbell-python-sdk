@@ -17,6 +17,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
       - name: Setup nox
         uses: excitedleigh/setup-nox@v2
       - name: Run tests
@@ -26,6 +30,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
       - name: Setup nox
         uses: excitedleigh/setup-nox@v2
       - name: Run lint
