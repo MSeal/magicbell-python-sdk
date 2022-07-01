@@ -2,7 +2,7 @@ import typing
 
 import httpx
 
-from .api import ProjectAPI, RealtimeAPI
+from .api import ProjectAPI, RealtimeAPI, UserAPI
 from .configuration import Configuration
 
 
@@ -45,6 +45,7 @@ class MagicBell:
 
         self.projects = ProjectAPI(self.http_client, self.configuration)
         self.realtime = RealtimeAPI(self.http_client, self.configuration)
+        self.user = UserAPI(self.http_client, self.configuration)
 
     async def __aenter__(self):
         await self.http_client.__aenter__()
