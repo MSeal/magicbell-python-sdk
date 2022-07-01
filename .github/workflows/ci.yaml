@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: ${{ matrix.python_version }}
       - name: Setup nox
-        uses: excitedleigh/setup-nox@v2
+        uses: excitedleigh/setup-nox@v2.1.0
       - name: Run tests
         run: nox -s test-${{ matrix.python_version }}
   lint:
@@ -35,6 +35,6 @@ jobs:
         with:
           python-version: "3.8"
       - name: Setup nox
-        uses: excitedleigh/setup-nox@v2
+        uses: excitedleigh/setup-nox@v2.1.0
       - name: Run lint
         run: nox -s lint
