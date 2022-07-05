@@ -7,7 +7,7 @@ An unofficial Python SDK for [MagicBell](https://magicbell.com).
 [Install](#installation--usage) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
 
 - API Version: 1.0
-- Package Version: 0.1.0
+- Package Version: 1.0.0
 
 ## Requirements
 
