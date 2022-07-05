@@ -154,3 +154,50 @@ async def manage_project(request: Request):
         )
     elif request.method == "DELETE":
         return JSONResponse({"message": "Successfully deleted project"})
+
+
+@app.route("/users", methods=["POST"])
+async def create_user(request: Request):
+    verify_api_key_and_secret(request)
+    body = await request.json()
+
+    if "user" not in body:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            {
+                "errors": [
+                    {
+                        "message": "Param 'user' is required",
+                    }
+                ]
+            },
+        )
+
+    if body["user"]["email"] == "500@example.com":
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Internal server error")
+
+    return JSONResponse(body)
+
+
+@app.route("/users/{user_id}", methods=["PUT", "DELETE"])
+async def manage_user(request: Request):
+    verify_api_key_and_secret(request)
+
+    if request.method == "PUT":
+        body = await request.json()
+
+        if "user" not in body:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                {
+                    "errors": [
+                        {
+                            "message": "Param 'user' is required",
+                        }
+                    ]
+                },
+            )
+
+        return JSONResponse(body)
+    elif request.method == "DELETE":
+        return JSONResponse(None, status_code=status.HTTP_204_NO_CONTENT)
