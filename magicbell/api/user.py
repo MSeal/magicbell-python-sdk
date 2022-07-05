@@ -26,7 +26,7 @@ class UserAPI(BaseAPI):
         response = await self.client.post(
             "/users",
             headers=self.configuration.get_general_headers(idempotency_key=idempotency_key),
-            data=wrapped_user.json(exclude_unset=True),  # type: ignore
+            content=wrapped_user.json(exclude_unset=True),
         )
         return build_response(response=response, out_type=WrappedUser)
 
@@ -50,7 +50,7 @@ class UserAPI(BaseAPI):
         response = await self.client.put(
             url,
             headers=self.configuration.get_general_headers(idempotency_key=idempotency_key),
-            data=wrapped_user.json(exclude_unset=True),  # type: ignore
+            content=wrapped_user.json(exclude_unset=True),
         )
         return build_response(response=response, out_type=WrappedUser)
 

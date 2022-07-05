@@ -10,7 +10,7 @@ from magicbell import errors
 from magicbell.configuration import Configuration
 
 
-class TestAPIKeyAndSecretValidation:
+class TestAuthenticationErrorHandling:
     @pytest.fixture(autouse=True)
     def clear_configuration(self, configuration: Configuration):
         configuration.api_key = None

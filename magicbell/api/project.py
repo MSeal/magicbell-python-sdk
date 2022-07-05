@@ -45,7 +45,7 @@ class ProjectAPI(BaseAPI):
         url = f"/workspaces/{workspace_id}/projects"
         response = await self.client.post(
             url,
-            data=project_input.json(exclude_unset=True),  # type: ignore
+            content=project_input.json(exclude_unset=True),
             headers=self.configuration.get_user_headers(),
         )
         return build_response(response=response, out_type=WrappedProject)
@@ -63,7 +63,7 @@ class ProjectAPI(BaseAPI):
         url = f"/workspaces/{workspace_id}/projects/{project_id}"
         response = await self.client.put(
             url,
-            data=project_input.json(exclude_unset=True),  # type: ignore
+            content=project_input.json(exclude_unset=True),
             headers=self.configuration.get_user_headers(),
         )
         return build_response(response=response, out_type=WrappedProject)
