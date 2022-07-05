@@ -1,3 +1,5 @@
+import typing
+
 import httpx
 
 
@@ -39,6 +41,9 @@ class BaseMagicBellHTTPError(BaseMagicBellError):
     @property
     def content(self) -> bytes:
         return self.response.content
+
+    def json(self) -> typing.Any:
+        return self.response.json()
 
 
 class MagicBellHTTPError(BaseMagicBellHTTPError):

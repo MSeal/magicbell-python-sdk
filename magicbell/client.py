@@ -26,7 +26,11 @@ class MagicBell:
     projects: ProjectAPI
     realtime: RealtimeAPI
 
-    def __init__(self, configuration: typing.Optional[Configuration] = None):
+    def __init__(
+        self,
+        configuration: typing.Optional[Configuration] = None,
+        http_client: typing.Optional[httpx.AsyncClient] = None,
+    ):
         """Create a new MagicBell instance.
 
         Parameters
@@ -38,18 +42,21 @@ class MagicBell:
         """
 
         self.configuration = configuration or Configuration()
-        self.http_client = httpx.AsyncClient(
+        self.http_client = http_client or httpx.AsyncClient(
             base_url=self.configuration.api_url,
             timeout=httpx.Timeout(timeout=self.configuration.request_timeout_seconds),
         )
+        self._is_unmanaged_http_client = http_client is not None
 
         self.projects = ProjectAPI(self.http_client, self.configuration)
         self.realtime = RealtimeAPI(self.http_client, self.configuration)
         self.users = UserAPI(self.http_client, self.configuration)
 
     async def __aenter__(self):
-        await self.http_client.__aenter__()
+        if not self._is_unmanaged_http_client:
+            await self.http_client.__aenter__()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.http_client.__aexit__(exc_type, exc_val, exc_tb)
+        if not self._is_unmanaged_http_client:
+            await self.http_client.__aexit__(exc_type, exc_val, exc_tb)
