@@ -8,9 +8,14 @@
 
 ## Running Examples
 
+### Locally
 ```shell
 pip install jupyterlab
 jupyter lab
 
 # import the notebooks you want to run
 ```
+
+### Using Noteable
+
+_Coming soon_.
