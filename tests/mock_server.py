@@ -1,4 +1,5 @@
 """Contains a mock HTTP server for testing"""
+import typing
 import uuid
 from datetime import datetime, timezone
 
@@ -110,24 +111,46 @@ async def create_notifications(request: Request):
     )
 
 
+def make_example_project(workspace_id: int, project_id: int = 1) -> typing.Dict:
+    return {
+        "id": 1,
+        "name": "My first project",
+        "hmac_enabled": True,
+        "api_key": "api_key_123",
+        "api_secret": "api_secret_123",
+        "workspace": {
+            "id": workspace_id,
+            "title": "My first workspace",
+        },
+    }
+
+
 @app.route("/workspaces/{workspace_id:int}/projects", methods=["GET"])
 async def get_projects(request: Request):
     verify_user_jwt(request)
+    return JSONResponse({"projects": [make_example_project(request.path_params["workspace_id"])]})
 
-    return JSONResponse(
-        {
-            "projects": [
-                {
-                    "id": 1,
-                    "name": "My first project",
-                    "hmac_enabled": True,
-                    "api_key": "api_key_123",
-                    "api_secret": "api_secret_123",
-                    "workspace": {
-                        "id": request.path_params["workspace_id"],
-                        "title": "My first workspace",
-                    },
-                }
-            ]
-        }
-    )
+
+@app.route("/workspaces/{workspace_id:int}/projects", methods=["POST"])
+async def create_project(request: Request):
+    verify_user_jwt(request)
+    return JSONResponse({"project": make_example_project(request.path_params["workspace_id"])})
+
+
+@app.route(
+    "/workspaces/{workspace_id:int}/projects/{project_id:int}",
+    methods=["GET", "PUT", "DELETE"],
+)
+async def manage_project(request: Request):
+    verify_user_jwt(request)
+
+    if request.method in {"GET", "PUT"}:
+        return JSONResponse(
+            {
+                "project": make_example_project(
+                    request.path_params["workspace_id"], request.path_params["project_id"]
+                )
+            }
+        )
+    elif request.method == "DELETE":
+        return JSONResponse({"message": "Successfully deleted project"})

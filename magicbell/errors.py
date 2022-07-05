@@ -31,7 +31,7 @@ class BaseMagicBellHTTPError(BaseMagicBellError):
         if self.response.headers:
             error_lines.append(f"HTTP response headers: {self.response.headers}")
         if self.response.content:
-            error_lines.append(f"HTTP response body: {self.response.content}")
+            error_lines.append(f"HTTP response body: {self.response.text}")
         return "\n".join(error_lines)
 
     @property
