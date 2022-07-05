@@ -4,7 +4,7 @@ import typing
 from ..model.project import WrappedProject, WrappedProjectInput, WrappedProjects
 from ..model.response import Response
 from ._base import BaseAPI
-from ._parsing import build_response
+from ._parsing import build_request_content, build_response
 
 
 class ProjectAPI(BaseAPI):
@@ -33,37 +33,43 @@ class ProjectAPI(BaseAPI):
         return build_response(response=response, out_type=WrappedProject)
 
     async def create_project(
-        self, workspace_id: int, project_input: WrappedProjectInput
+        self, workspace_id: int, project_input: typing.Union[WrappedProjectInput, typing.Dict]
     ) -> WrappedProject:
         """Create a project, returning `WrappedProject`."""
         return (await self.create_project_detailed(workspace_id, project_input)).parsed
 
     async def create_project_detailed(
-        self, workspace_id: int, project_input: WrappedProjectInput
+        self, workspace_id: int, project_input: typing.Union[WrappedProjectInput, typing.Dict]
     ) -> Response[WrappedProject]:
         """Create a project, returning a `Response`."""
         url = f"/workspaces/{workspace_id}/projects"
         response = await self.client.post(
             url,
-            content=project_input.json(exclude_unset=True),
+            content=build_request_content(project_input),
             headers=self.configuration.get_user_headers(),
         )
         return build_response(response=response, out_type=WrappedProject)
 
     async def update_project(
-        self, workspace_id: int, project_id: int, project_input: WrappedProjectInput
+        self,
+        workspace_id: int,
+        project_id: int,
+        project_input: typing.Union[WrappedProjectInput, typing.Dict],
     ) -> WrappedProject:
         """Update a project, returning `WrappedProject`."""
         return (await self.update_project_detailed(workspace_id, project_id, project_input)).parsed
 
     async def update_project_detailed(
-        self, workspace_id: int, project_id: int, project_input: WrappedProjectInput
+        self,
+        workspace_id: int,
+        project_id: int,
+        project_input: typing.Union[WrappedProjectInput, typing.Dict],
     ) -> Response[WrappedProject]:
         """Update a project, returning a `Response`."""
         url = f"/workspaces/{workspace_id}/projects/{project_id}"
         response = await self.client.put(
             url,
-            content=project_input.json(exclude_unset=True),
+            content=build_request_content(project_input),
             headers=self.configuration.get_user_headers(),
         )
         return build_response(response=response, out_type=WrappedProject)

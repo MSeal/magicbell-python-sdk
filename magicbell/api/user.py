@@ -3,12 +3,14 @@ import typing
 from ..model.response import Response
 from ..model.user import WrappedUser
 from ._base import BaseAPI
-from ._parsing import build_response
+from ._parsing import build_request_content, build_response
 
 
 class UserAPI(BaseAPI):
     async def create_user(
-        self, wrapped_user: WrappedUser, idempotency_key: typing.Optional[str] = None
+        self,
+        wrapped_user: typing.Union[WrappedUser, typing.Dict],
+        idempotency_key: typing.Optional[str] = None,
     ) -> WrappedUser:
         """Create a user, returning a `WrappedUser`.
         Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.  # noqa: E501
@@ -17,7 +19,9 @@ class UserAPI(BaseAPI):
         return (await self.create_user_detailed(wrapped_user, idempotency_key)).parsed
 
     async def create_user_detailed(
-        self, wrapped_user: WrappedUser, idempotency_key: typing.Optional[str] = None
+        self,
+        wrapped_user: typing.Union[WrappedUser, typing.Dict],
+        idempotency_key: typing.Optional[str] = None,
     ) -> Response[WrappedUser]:
         """Create a user, returning a `Response`.
         Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.  # noqa: E501
@@ -26,12 +30,15 @@ class UserAPI(BaseAPI):
         response = await self.client.post(
             "/users",
             headers=self.configuration.get_general_headers(idempotency_key=idempotency_key),
-            content=wrapped_user.json(exclude_unset=True),
+            content=build_request_content(wrapped_user),
         )
         return build_response(response=response, out_type=WrappedUser)
 
     async def update_user(
-        self, user_id: str, wrapped_user: WrappedUser, idempotency_key: typing.Optional[str] = None
+        self,
+        user_id: str,
+        wrapped_user: typing.Union[WrappedUser, typing.Dict],
+        idempotency_key: typing.Optional[str] = None,
     ) -> WrappedUser:
         """Update a user by id, email or external_id, returning a `WrappedUser`.
         The user id is the MagicBell user id.
@@ -40,7 +47,10 @@ class UserAPI(BaseAPI):
         return (await self.update_user_detailed(user_id, wrapped_user, idempotency_key)).parsed
 
     async def update_user_detailed(
-        self, user_id: str, wrapped_user: WrappedUser, idempotency_key: typing.Optional[str] = None
+        self,
+        user_id: str,
+        wrapped_user: typing.Union[WrappedUser, typing.Dict],
+        idempotency_key: typing.Optional[str] = None,
     ) -> Response[WrappedUser]:
         """Update a user by id, email or external_id, returning a `Response`.
         The user id is the MagicBell user id.
@@ -50,7 +60,7 @@ class UserAPI(BaseAPI):
         response = await self.client.put(
             url,
             headers=self.configuration.get_general_headers(idempotency_key=idempotency_key),
-            content=wrapped_user.json(exclude_unset=True),
+            content=build_request_content(wrapped_user),
         )
         return build_response(response=response, out_type=WrappedUser)
 
