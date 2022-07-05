@@ -1,6 +1,8 @@
 from ._version import __version__  # noqa: F401
 from .client import MagicBell  # noqa: F401
 from .model import (  # noqa: F401
+    Channel,
+    ChannelConfiguration,
     ChannelOverrides,
     CreatedNotificationBroadcast,
     Notification,
@@ -11,6 +13,7 @@ from .model import (  # noqa: F401
     ProjectInput,
     Recipient,
     User,
+    WrappedChannels,
     WrappedCreatedNotificationBroadcast,
     WrappedNotification,
     WrappedProject,

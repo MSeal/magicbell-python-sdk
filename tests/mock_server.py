@@ -201,3 +201,9 @@ async def manage_user(request: Request):
         return JSONResponse(body)
     elif request.method == "DELETE":
         return JSONResponse(None, status_code=status.HTTP_204_NO_CONTENT)
+
+
+@app.route("/channels", methods=["POST"])
+async def manage_channels(request: Request):
+    verify_api_key_and_secret(request)
+    return JSONResponse(None, status_code=status.HTTP_204_NO_CONTENT)

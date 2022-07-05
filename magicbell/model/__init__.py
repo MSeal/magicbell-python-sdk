@@ -1,3 +1,4 @@
+from .channels import Channel, ChannelConfiguration, WrappedChannels  # noqa: F401
 from .notification import (  # noqa: F401
     ChannelOverrides,
     CreatedNotificationBroadcast,
