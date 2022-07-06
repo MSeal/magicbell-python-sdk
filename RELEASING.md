@@ -52,7 +52,7 @@ git checkout main
 git pull
 
 # Tag the release
-git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git tag -s vX.Y.Z -m "Release vX.Y.Z"
 
 # Push the tag
 git push origin vX.Y.Z

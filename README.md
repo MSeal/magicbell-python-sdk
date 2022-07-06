@@ -2,7 +2,18 @@
 
 ![magicbell logo purple](./assets/MB_logo_Purple_2800x660.png)
 
-An unofficial Python SDK for [MagicBell](https://magicbell.com).
+<p align="center">
+An unofficial Python SDK for <a href="https://magicbell.com">MagicBell</a>.
+</p>
+<p align="center">
+<a href="https://github.com/noteable-io/magicbell-python-sdk/actions/workflows/ci.yaml">
+    <img src="https://github.com/noteable-io/magicbell-python-sdk/actions/workflows/ci.yaml/badge.svg" alt="CI" />
+</a>
+<img alt="PyPI - License" src="https://img.shields.io/pypi/l/magicbell" />
+<img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/magicbell" />
+<img alt="PyPI" src="https://img.shields.io/pypi/v/magicbell">
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+</p>
 
 [Install](#installation--usage) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
 
