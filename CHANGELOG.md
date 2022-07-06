@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.0.0] - 2022-07-05
+First open source release of the SDK.
+
 ### Added
 - Initial repo setup with basic client and CI
 - APIs supported:

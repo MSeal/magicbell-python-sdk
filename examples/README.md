@@ -15,7 +15,3 @@ jupyter lab
 
 # import the notebooks you want to run
 ```
-
-### Using Noteable
-
-_Coming soon_.

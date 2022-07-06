@@ -106,3 +106,9 @@ For more examples see the [`examples` directory](./examples).
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+-------
+
+<center>Open sourced with ❤️ by <a href="https://noteable.io">Noteable</a> for the community. </center>
+
+![boost data collaboration with notebooks](./assets/noteable.png)

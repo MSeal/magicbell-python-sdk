@@ -21,6 +21,7 @@ def build_response(
     *, response: httpx.Response, out_type: typing.Optional[typing.Type[ResponseBodyT]]
 ) -> Response[ResponseBodyT]:
     """Transform an `httpx.Response` into a `Response`.
+
     Raises an error if the response is not successful.
     """
 
