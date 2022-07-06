@@ -1,7 +1,5 @@
-from __future__ import absolute_import
-
-# flake8: noqa
-
-# import apis into api package
-from magicbell.api.users_api import UsersApi
-from magicbell.api.real_time_api import RealTimeApi
+from .channels import ChannelsAPI  # noqa: F401
+from .graphql import GraphQLAPI  # noqa: F401
+from .project import ProjectAPI  # noqa: F401
+from .realtime import RealtimeAPI  # noqa: F401
+from .user import UserAPI  # noqa: F401

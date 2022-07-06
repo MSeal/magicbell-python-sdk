@@ -67,3 +67,6 @@ target/
 
 # intellij
 .idea/
+
+tmp/
+.cache_ggshield
