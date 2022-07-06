@@ -203,7 +203,36 @@ async def manage_user(request: Request):
         return JSONResponse(None, status_code=status.HTTP_204_NO_CONTENT)
 
 
-@app.route("/channels", methods=["POST"])
+@app.route("/channels", methods=["POST", "GET"])
 async def manage_channels(request: Request):
     verify_api_key_and_secret(request)
-    return JSONResponse(None, status_code=status.HTTP_204_NO_CONTENT)
+    if request.method == "POST":
+        return JSONResponse(None, status_code=status.HTTP_204_NO_CONTENT)
+    elif request.method == "GET":
+        return JSONResponse(
+            {
+                "channels": [
+                    {
+                        "slug": "email",
+                        "configuration": {
+                            "providers": {
+                                "mailgun": {
+                                    "enabled": True,
+                                    "sender_domain": "example.com",
+                                    "api_key": "1234",
+                                    "from": {
+                                        "email": "notification@example.com",
+                                        "name": "Example",
+                                    },
+                                }
+                            }
+                        },
+                    },
+                    {"slug": "slack"},
+                    {"slug": "web_push"},
+                    {"slug": "mobile_push"},
+                    {"slug": "sms"},
+                    {"slug": "in_app"},
+                ]
+            }
+        )

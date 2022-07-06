@@ -30,3 +30,20 @@ class TestUpdateChannelsDetailed:
         )
 
         assert response.status_code == 204
+
+
+class TestGetChannels:
+    async def test_response_is_parsed(self, magicbell_client: magicbell.MagicBell):
+        response = await magicbell_client.channels.get_channels()
+        email_channel = response.channels[0]
+
+        assert len(response.channels) == 6
+        assert email_channel.slug == "email"
+        assert email_channel.configuration.providers["mailgun"]["enabled"] is True
+        assert email_channel.configuration.providers["mailgun"]["api_key"] == "1234"
+        assert email_channel.configuration.providers["mailgun"]["sender_domain"] == "example.com"
+        assert (
+            email_channel.configuration.providers["mailgun"]["from"]["email"]
+            == "notification@example.com"
+        )
+        assert email_channel.configuration.providers["mailgun"]["from"]["name"] == "Example"

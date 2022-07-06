@@ -31,3 +31,24 @@ class ChannelsAPI(BaseAPI):
             headers=self.configuration.get_general_headers(idempotency_key=idempotency_key),
         )
         return build_response(response=response, out_type=None)
+
+    async def get_channels(self) -> WrappedChannels:
+        """Get channel configuration for a project.
+
+        Warnings
+        --------
+        This method is undocumented, proceed with caution.
+        """
+        return (await self.get_channels_detailed()).parsed
+
+    async def get_channels_detailed(self) -> Response[WrappedChannels]:
+        """Get channel configuration for a project.
+
+        Warnings
+        --------
+        This method is undocumented, proceed with caution.
+        """
+        response = await self.client.get(
+            "/channels", headers=self.configuration.get_general_headers()
+        )
+        return build_response(response=response, out_type=WrappedChannels)
