@@ -12,7 +12,7 @@ keywords = ["magicbell", "sdk"]
 python = "^3.8"
 pydantic = "^1.9.1"
 httpx = "^0.23.0"
-orjson = "^3.7.5"
+orjson = "^3.7.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
