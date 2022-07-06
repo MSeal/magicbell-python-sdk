@@ -4,7 +4,7 @@
 
 This SDK provides convenient access to the [MagicBell REST API](https://magicbell.com/docs/rest-api/overview) from applications written in Python. It includes helpers for creating notifications, managing users, managing projects, and GraphQL.
 
-An unofficial Python SDK for [MagicBell](https://magicbell.com) open sourced with ❤️ by <a href="https://noteable.io">Noteable</a>, a collaborative notebook platform that enables teams to use and visualize data, together.
+This is an unofficial Python SDK for [MagicBell](https://magicbell.com) open sourced with ❤️ by <a href="https://noteable.io">Noteable</a>, a collaborative notebook platform that enables teams to use and visualize data, together.
 
 [Install](#installation) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
 
