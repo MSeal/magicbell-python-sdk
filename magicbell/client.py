@@ -2,7 +2,7 @@ import typing
 
 import httpx
 
-from .api import ChannelsAPI, ProjectAPI, RealtimeAPI, UserAPI
+from .api import ChannelsAPI, GraphQLAPI, ProjectAPI, RealtimeAPI, UserAPI
 from .configuration import Configuration
 
 
@@ -26,6 +26,7 @@ class MagicBell:
     projects: ProjectAPI
     realtime: RealtimeAPI
     channels: ChannelsAPI
+    graphql: GraphQLAPI
 
     def __init__(
         self,
@@ -53,6 +54,7 @@ class MagicBell:
         self.realtime = RealtimeAPI(self.http_client, self.configuration)
         self.users = UserAPI(self.http_client, self.configuration)
         self.channels = ChannelsAPI(self.http_client, self.configuration)
+        self.graphql = GraphQLAPI(self.http_client, self.configuration)
 
     async def __aenter__(self):
         if not self._is_unmanaged_http_client:

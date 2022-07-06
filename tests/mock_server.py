@@ -55,6 +55,48 @@ def verify_user_jwt(request: Request):
         )
 
 
+def verify_user_hmac(request: Request):
+    external_id = request.headers.get("X-MAGICBELL-USER-EXTERNAL-ID")
+    user_email = request.headers.get("X-MAGICBELL-USER-EMAIL")
+
+    if request.headers.get("X-MAGICBELL-USER-HMAC") != "hmac_123":
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            {
+                "errors": [
+                    {
+                        "code": "forbidden",
+                    }
+                ]
+            },
+        )
+
+    if request.headers.get("X-MAGICBELL-API-KEY") != api_key:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN,
+            {
+                "errors": [
+                    {
+                        "code": "api_key_not_provided",
+                        "message": "API key not provided",
+                    }
+                ]
+            },
+        )
+
+    if not (external_id or user_email):
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            {
+                "errors": [
+                    {
+                        "code": "external_id_or_email_required",
+                    }
+                ]
+            },
+        )
+
+
 async def http_exception(request: Request, exc: HTTPException):
     return JSONResponse(exc.detail, status_code=exc.status_code, headers=exc.headers)
 
@@ -236,3 +278,14 @@ async def manage_channels(request: Request):
                 ]
             }
         )
+
+
+@app.route("/graphql", methods=["POST"])
+async def graphql(request: Request):
+    body = await request.json()
+    if "notifications" in body["query"]:
+        verify_user_hmac(request)
+    else:
+        verify_api_key_and_secret(request)
+
+    return JSONResponse({"data": {"notifications": [{"id": str(uuid.uuid4())}]}})

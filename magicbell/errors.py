@@ -9,6 +9,12 @@ class BaseMagicBellError(Exception):
     pass
 
 
+class MagicBellConfigurationError(BaseMagicBellError):
+    """Raised when there is an error in the configuration."""
+
+    pass
+
+
 class BaseMagicBellHTTPError(BaseMagicBellError):
     """Base class for all MagicBell HTTP errors."""
 

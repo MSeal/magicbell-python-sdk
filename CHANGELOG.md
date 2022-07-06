@@ -21,3 +21,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Delete project
   - Updating channel configuration for a project (undocumented)
   - Retrieve channel configuration for a project (undocumented)
+  - GraphQL queries

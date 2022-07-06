@@ -52,7 +52,7 @@ class Configuration(BaseSettings):
 
         This includes `self.api_key` as `X-MAGICBELL-API-KEY` and `self.api_secret` as `X-MAGICBELL-API-SECRET`.  # noqa: E501
         """
-        headers = self._get_base_headers()
+        headers = self.get_base_headers()
         if idempotency_key:
             headers["IDEMPOTENCY-KEY"] = idempotency_key
         if self.api_key:
@@ -68,14 +68,14 @@ class Configuration(BaseSettings):
 
         This includes `self.user_jwt` as `Authorization: Bearer <JWT>`.
         """
-        headers = self._get_base_headers()
+        headers = self.get_base_headers()
         if idempotency_key:
             headers["IDEMPOTENCY-KEY"] = idempotency_key
         if self.user_jwt:
             headers["Authorization"] = f"Bearer {self.user_jwt}"
         return headers
 
-    def _get_base_headers(self) -> typing.Dict[str, str]:
+    def get_base_headers(self) -> typing.Dict[str, str]:
         """Return headers for all requests"""
         return {
             "User-Agent": f"magicbell-python/{__version__}",
