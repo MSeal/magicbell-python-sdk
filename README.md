@@ -111,4 +111,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 <p align="center">Open sourced with ❤️ by <a href="https://noteable.io">Noteable</a> for the community.</p>
 
-![boost data collaboration with notebooks](./assets/noteable.png)
+[![boost data collaboration with notebooks](./assets/noteable.png)](https://noteable.io)
