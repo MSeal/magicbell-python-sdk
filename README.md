@@ -1,4 +1,4 @@
-# MagicBell-Python
+# MagicBell-Python SDK
 
 <img src="./assets/MB_logo_Purple_2800x660.png" width="50%">
 
