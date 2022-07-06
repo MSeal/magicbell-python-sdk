@@ -1,19 +1,19 @@
-# magicbell-python-sdk
+# MagicBell-Python
 
-![magicbell logo purple](./assets/MB_logo_Purple_2800x660.png)
+<img src="./assets/MB_logo_Purple_2800x660.png" width="50%">
 
-An unofficial Python SDK for [MagicBell](https://magicbell.com).
+This SDK provides convenient access to the [MagicBell REST API](https://magicbell.com/docs/rest-api/overview) from applications written in Python. It includes helpers for creating notifications, managing users, managing projects, and GraphQL.
 
-[Install](#installation--usage) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
+An unofficial Python SDK for [MagicBell](https://magicbell.com) open sourced with ❤️ by <a href="https://noteable.io">Noteable</a>, a collaborative notebook platform that enables teams to use and visualize data, together.
 
-- API Version: 1.0
-- Package Version: 1.0.0
+[Install](#installation) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
+
 
 ## Requirements
 
 Python 3.8+
 
-## Installation & Usage
+## Installation
 
 ### Poetry
 
@@ -111,4 +111,5 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 <p align="center">Open sourced with ❤️ by <a href="https://noteable.io">Noteable</a> for the community.</p>
 
-[![boost data collaboration with notebooks](./assets/noteable.png)](https://noteable.io)
+<img href="https://pages.noteable.io/private-beta-access" src="./assets/noteable.png" alt="Boost Data Collaboration with Notebooks">
+
