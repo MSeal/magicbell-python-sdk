@@ -20,42 +20,6 @@ class Recipient(BaseModel):
     )
 
 
-class Notification(BaseModel):
-    title: str = Field(description="Title of the notification.")
-    category: typing.Optional[str] = Field(
-        description="Category the notification belongs to. "
-        "This is useful to allow users to set their preferences."
-    )
-    content: typing.Optional[str] = Field(
-        description="Content of the notification. "
-        "If you provide HTML content, the notification inbox will render it correctly."
-    )
-    action_url: typing.Optional[str] = Field(
-        description="A URL to redirect the user to when they click the notification in their notification inbox."  # noqa: E501
-    )
-    custom_attributes: typing.Optional[typing.Dict[str, typing.Any]] = Field(
-        description="Set of key-value pairs that you can attach to a notification. "
-        "It accepts objects for the value of a key. "
-        "You can use it to share data between channels or to render a custom UI."
-    )
-    topic: typing.Optional[str] = Field(
-        description="Topic the notification belongs to. This is useful to create threads."
-    )
-    recipients: typing.List[Recipient] = Field(
-        min_items=1,
-        max_items=1000,
-        description="Users to send the notification to. "
-        "You can specify up to 1000 users at once. Use matches to send a notification to everyone",
-    )
-    overrides: typing.Optional["NotificationOverrides"] = Field(
-        description="Optional overrides to configure notifications per target destination"
-    )
-
-
-class WrappedNotification(BaseModel):
-    notification: Notification
-
-
 class ChannelOverrides(BaseModel):
     title: typing.Optional[str] = Field(description="Overridden title for this channel")
     content: typing.Optional[str] = Field(description="Overridden content for this channel")
@@ -99,6 +63,42 @@ class NotificationOverrides(BaseModel):
     providers: typing.Optional[NotificationProvidersOverrides] = Field(
         description="Overrides for specific providers (Sendgrid, Postmark, APNs, etc)"
     )
+
+
+class Notification(BaseModel):
+    title: str = Field(description="Title of the notification.")
+    category: typing.Optional[str] = Field(
+        description="Category the notification belongs to. "
+        "This is useful to allow users to set their preferences."
+    )
+    content: typing.Optional[str] = Field(
+        description="Content of the notification. "
+        "If you provide HTML content, the notification inbox will render it correctly."
+    )
+    action_url: typing.Optional[str] = Field(
+        description="A URL to redirect the user to when they click the notification in their notification inbox."  # noqa: E501
+    )
+    custom_attributes: typing.Optional[typing.Dict[str, typing.Any]] = Field(
+        description="Set of key-value pairs that you can attach to a notification. "
+        "It accepts objects for the value of a key. "
+        "You can use it to share data between channels or to render a custom UI."
+    )
+    topic: typing.Optional[str] = Field(
+        description="Topic the notification belongs to. This is useful to create threads."
+    )
+    recipients: typing.List[Recipient] = Field(
+        min_items=1,
+        max_items=1000,
+        description="Users to send the notification to. "
+        "You can specify up to 1000 users at once. Use matches to send a notification to everyone",
+    )
+    overrides: typing.Optional[NotificationOverrides] = Field(
+        description="Optional overrides to configure notifications per target destination"
+    )
+
+
+class WrappedNotification(BaseModel):
+    notification: Notification
 
 
 class CreatedNotificationBroadcast(BaseModel):
