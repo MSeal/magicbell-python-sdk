@@ -10,7 +10,7 @@ keywords = ["magicbell", "sdk"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pydantic = "^1.9.1"
+pydantic = "^1.9.0"
 httpx = "^0.23.0"
 orjson = "^3.7.6"
 
