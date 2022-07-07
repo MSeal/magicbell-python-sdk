@@ -9,6 +9,7 @@ from .configuration import Configuration
 class MagicBell:
     """Central class for interacting with the MagicBell API.
     To be used as an asynchronous context manager.
+    If an asynchronous context manager isn't feasible, then the `connect` and `disconnect` methods can be used.  # noqa: E501
 
     Examples
     --------
