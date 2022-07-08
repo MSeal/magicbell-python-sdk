@@ -18,7 +18,7 @@ An unofficial Python SDK for <a href="https://magicbell.com">MagicBell</a>.
 [Install](#installation--usage) | [Getting Started](#getting-started) | [Examples](./examples) | [License](./LICENSE) | [Code of Conduct](./CODE_OF_CONDUCT.md) | [Contributing](./CONTRIBUTING.md)
 
 - API Version: 1.0
-- Package Version: 1.0.0
+- Package Version: 1.1.0
 
 ## Requirements
 
