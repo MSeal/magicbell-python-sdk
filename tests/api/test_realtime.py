@@ -20,6 +20,11 @@ class TestCreateNotification:
                 notification=magicbell.Notification(
                     title="Test notification",
                     recipients=[magicbell.Recipient(email="foo@bar.com")],
+                    overrides=magicbell.NotificationOverrides(
+                        providers=magicbell.NotificationProvidersOverrides(
+                            mailgun={"template": "test-template"}
+                        )
+                    ),
                 )
             )
         )

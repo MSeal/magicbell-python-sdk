@@ -9,6 +9,7 @@ from .configuration import Configuration
 class MagicBell:
     """Central class for interacting with the MagicBell API.
     To be used as an asynchronous context manager.
+    If an asynchronous context manager isn't feasible, then the `connect` and `disconnect` methods can be used.  # noqa: E501
 
     Examples
     --------
@@ -56,11 +57,25 @@ class MagicBell:
         self.channels = ChannelsAPI(self.http_client, self.configuration)
         self.graphql = GraphQLAPI(self.http_client, self.configuration)
 
-    async def __aenter__(self):
+    async def connect(self) -> None:
+        """Connect to the MagicBell API.
+
+        This method is called automatically when the async context is entered.
+        """
         if not self._is_unmanaged_http_client:
             await self.http_client.__aenter__()
+
+    async def disconnect(self, exc_type=None, exc_val=None, exc_tb=None) -> None:
+        """Disconnect from the MagicBell API.
+
+        This method is called automatically when the async context is exited.
+        """
+        if not self._is_unmanaged_http_client:
+            await self.http_client.__aexit__(exc_type, exc_val, exc_tb)
+
+    async def __aenter__(self):
+        await self.connect()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        if not self._is_unmanaged_http_client:
-            await self.http_client.__aexit__(exc_type, exc_val, exc_tb)
+        await self.disconnect(exc_type, exc_val, exc_tb)

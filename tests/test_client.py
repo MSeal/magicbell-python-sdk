@@ -4,6 +4,7 @@ The tests in this file aren't meant to be exhaustive over all the API endpoints,
 ensure that the client handles expected responses as well as errors correctly.
 """
 import pytest
+from httpx._client import ClientState
 
 import magicbell
 from magicbell import errors
@@ -59,3 +60,32 @@ class TestAuthenticationErrorHandling:
 
         assert exc_info.value.status_code == 403
         assert exc_info.value.json()["errors"][0]["code"] == "forbidden"
+
+
+class TestConnectionMethods:
+    async def test_connect_sets_up_the_client(self, configuration: Configuration):
+        client = magicbell.MagicBell(configuration)
+        assert client.http_client._state == ClientState.UNOPENED
+
+        await client.connect()
+
+        assert client.http_client._state == ClientState.OPENED
+
+    async def test_disconnect_closes_the_client(self, configuration: Configuration):
+        client = magicbell.MagicBell(configuration)
+        await client.connect()
+        assert client.http_client._state == ClientState.OPENED
+
+        await client.disconnect()
+        assert client.http_client._state == ClientState.CLOSED
+
+
+class TestContextManager:
+    async def test_state_is_changed_correctly(self, configuration: Configuration):
+        client = magicbell.MagicBell(configuration)
+        assert client.http_client._state == ClientState.UNOPENED
+
+        async with client:
+            assert client.http_client._state == ClientState.OPENED
+
+        assert client.http_client._state == ClientState.CLOSED
