@@ -1,7 +1,6 @@
 # MagicBell-Python SDK
 
-<img src="./assets/MB_logo_Purple_2800x660.png" width="50%">
-
+<p align="center"><img src="./assets/MB_logo_Purple_2800x660.png" width="50%"></p>
 <p align="center">
 This SDK provides convenient access to the <a href="https://magicbell.com/docs/rest-api/overview">MagicBell REST API</a> from applications written in Python. 
 It includes helpers for creating notifications, managing users, managing projects, and executing GraphQL.
@@ -15,6 +14,8 @@ It includes helpers for creating notifications, managing users, managing project
 <img alt="PyPI" src="https://img.shields.io/pypi/v/magicbell">
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
+
+---------
 
 This is an unofficial Python SDK for [MagicBell](https://magicbell.com) open sourced with ❤️ by <a href="https://noteable.io">Noteable</a>, a collaborative notebook platform that enables teams to use and visualize data, together.
 
