@@ -9,6 +9,9 @@ It includes helpers for creating notifications, managing users, managing project
 <a href="https://github.com/noteable-io/magicbell-python-sdk/actions/workflows/ci.yaml">
     <img src="https://github.com/noteable-io/magicbell-python-sdk/actions/workflows/ci.yaml/badge.svg" alt="CI" />
 </a>
+<a href="https://codecov.io/gh/noteable-io/magicbell-python-sdk" > 
+ <img src="https://codecov.io/gh/noteable-io/magicbell-python-sdk/branch/main/graph/badge.svg?token=RGNWOIPWC0"/> 
+ </a>
 <img alt="PyPI - License" src="https://img.shields.io/pypi/l/magicbell" />
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/magicbell" />
 <img alt="PyPI" src="https://img.shields.io/pypi/v/magicbell">
