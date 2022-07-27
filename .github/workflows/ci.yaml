@@ -28,7 +28,7 @@ jobs:
       - name: Run tests
         run: nox -s test-${{ matrix.python_version }}
       - name: Generate coverage XML
-        run: python -m coverage xml
+        run: nox -s generate_coverage_xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
   lint:
