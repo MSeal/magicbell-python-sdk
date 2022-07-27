@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update contributing for clarity for project
 - Update flake8 checks
 
+### Added
+- Code coverage collection with codecov.io
+
 ## [1.1.0] - 2022-07-07
 ### Added
 - Add `MagicBell.connect` and `MagicBell.disconnect` methods for more ergonomic connection management.
