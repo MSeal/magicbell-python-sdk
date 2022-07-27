@@ -27,8 +27,10 @@ jobs:
           pip install --constraint=/tmp/requirements.txt nox_poetry
       - name: Run tests
         run: nox -s test-${{ matrix.python_version }}
+      - name: Generate coverage XML
+        run: python -m coverage xml
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
   lint:
     runs-on: ubuntu-20.04
     steps:
