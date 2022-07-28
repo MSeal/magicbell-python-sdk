@@ -10,7 +10,7 @@ nox.options.sessions = ["lint", "test"]
 @nox_poetry.session(python=["3.8", "3.9", "3.10"])
 def test(session: nox_poetry.Session):
     session.run_always("poetry", "install", external=True)
-    session.run("pytest", "-v")
+    session.run("pytest", "-v", "--cov=magicbell")
 
 
 @nox_poetry.session(python="3.8")
@@ -48,3 +48,9 @@ def blacken(session: nox_poetry.Session):
 def isort_apply(session: nox_poetry.Session):
     session.install("isort")
     session.run("isort", *LINT_PATHS)
+
+
+@nox_poetry.session(python="3.8")
+def generate_coverage_xml(session: nox_poetry.Session):
+    session.install("coverage[toml]")
+    session.run("coverage", "xml")
