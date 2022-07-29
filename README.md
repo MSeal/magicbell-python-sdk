@@ -1,6 +1,6 @@
 # MagicBell-Python SDK
 
-<p align="center"><img src="./assets/MB_logo_Purple_2800x660.png" width="50%"></p>
+<p align="center"><img src="https://assets.noteable.io/github/2022-07-29/MB_logo_Purple_2800x660.png" width="50%" alt="magicbell logo purple"></p>
 <p align="center">
 This SDK provides convenient access to the <a href="https://magicbell.com/docs/rest-api/overview">MagicBell REST API</a> from applications written in Python. 
 It includes helpers for creating notifications, managing users, managing projects, and executing GraphQL.
@@ -10,7 +10,7 @@ It includes helpers for creating notifications, managing users, managing project
     <img src="https://github.com/noteable-io/magicbell-python-sdk/actions/workflows/ci.yaml/badge.svg" alt="CI" />
 </a>
 <a href="https://codecov.io/gh/noteable-io/magicbell-python-sdk" > 
- <img src="https://codecov.io/gh/noteable-io/magicbell-python-sdk/branch/main/graph/badge.svg?token=RGNWOIPWC0"/> 
+ <img src="https://codecov.io/gh/noteable-io/magicbell-python-sdk/branch/main/graph/badge.svg?token=RGNWOIPWC0" alt="codecov code coverage"/> 
  </a>
 <img alt="PyPI - License" src="https://img.shields.io/pypi/l/magicbell" />
 <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/magicbell" />
@@ -127,5 +127,5 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 <p align="center">Open sourced with ❤️ by <a href="https://noteable.io">Noteable</a> for the community.</p>
 
-<img href="https://pages.noteable.io/private-beta-access" src="./assets/noteable.png" alt="Boost Data Collaboration with Notebooks">
+<img href="https://pages.noteable.io/private-beta-access" src="https://assets.noteable.io/github/2022-07-29/noteable.png" alt="Boost Data Collaboration with Notebooks">
 
