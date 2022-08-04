@@ -48,9 +48,10 @@ class Configuration(BaseSettings):
     def get_general_headers(
         self, idempotency_key: typing.Optional[str] = None
     ) -> typing.Dict[str, str]:
-        """Return headers used for non-project related requests.
+        """Return headers to use for non-project related requests.
+        These headers are most often used.
 
-        This includes `self.api_key` as `X-MAGICBELL-API-KEY` and `self.api_secret` as `X-MAGICBELL-API-SECRET`.  # noqa: E501
+        This includes `self.api_key` as `X-MAGICBELL-API-KEY` and `self.api_secret` as `X-MAGICBELL-API-SECRET`.
         """
         headers = self.get_base_headers()
         if idempotency_key:
@@ -64,7 +65,7 @@ class Configuration(BaseSettings):
     def get_user_headers(
         self, idempotency_key: typing.Optional[str] = None
     ) -> typing.Dict[str, str]:
-        """Return headers when a user JWT is required, such as projects.
+        """Return headers to use when a user JWT is required, such as projects.
 
         This includes `self.user_jwt` as `Authorization: Bearer <JWT>`.
         """
@@ -76,7 +77,7 @@ class Configuration(BaseSettings):
         return headers
 
     def get_base_headers(self) -> typing.Dict[str, str]:
-        """Return headers for all requests"""
+        """Return headers that should be used for all requests."""
         return {
             "User-Agent": f"magicbell-python/{__version__}",
             "Content-Type": "application/json",

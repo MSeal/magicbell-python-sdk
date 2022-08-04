@@ -54,3 +54,15 @@ def isort_apply(session: nox_poetry.Session):
 def generate_coverage_xml(session: nox_poetry.Session):
     session.install("coverage[toml]")
     session.run("coverage", "xml")
+
+
+@nox_poetry.session(python="3.8")
+def serve_docs(session: nox_poetry.Session):
+    session.run_always("poetry", "install", "-E", "docs", external=True)
+    session.run("mkdocs", "serve")
+
+
+@nox_poetry.session(python="3.8")
+def build_docs(session: nox_poetry.Session):
+    session.run_always("poetry", "install", "-E", "docs", external=True)
+    session.run("mkdocs", "build", "--clean")

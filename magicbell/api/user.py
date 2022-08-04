@@ -13,7 +13,7 @@ class UserAPI(BaseAPI):
         idempotency_key: typing.Optional[str] = None,
     ) -> WrappedUser:
         """Create a user, returning a `WrappedUser`.
-        Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.  # noqa: E501
+        Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.
         The external id, if provided, must be unique to the user.
         """
         return (await self.create_user_detailed(wrapped_user, idempotency_key)).parsed
@@ -24,7 +24,7 @@ class UserAPI(BaseAPI):
         idempotency_key: typing.Optional[str] = None,
     ) -> Response[WrappedUser]:
         """Create a user, returning a `Response`.
-        Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.  # noqa: E501
+        Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.
         The external id, if provided, must be unique to the user.
         """
         response = await self.client.post(
@@ -42,7 +42,7 @@ class UserAPI(BaseAPI):
     ) -> WrappedUser:
         """Update a user by id, email or external_id, returning a `WrappedUser`.
         The user id is the MagicBell user id.
-        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.  # noqa: E501
+        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.
         """
         return (await self.update_user_detailed(user_id, wrapped_user, idempotency_key)).parsed
 
@@ -54,7 +54,7 @@ class UserAPI(BaseAPI):
     ) -> Response[WrappedUser]:
         """Update a user by id, email or external_id, returning a `Response`.
         The user id is the MagicBell user id.
-        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.  # noqa: E501
+        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.
         """
         url = f"/users/{user_id}"
         response = await self.client.put(
@@ -67,7 +67,7 @@ class UserAPI(BaseAPI):
     async def delete_user(self, user_id: str, idempotency_key: typing.Optional[str] = None) -> None:
         """Delete a user by id, email or external_id.
         The user id is the MagicBell user id.
-        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.  # noqa: E501
+        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.
         We will delete the user completely 7 days after.
         If the user makes a request to the API, the deletion will be canceled.
         This will happen when the notification inbox for this user is loaded in your app, for example.
@@ -79,7 +79,7 @@ class UserAPI(BaseAPI):
     ) -> Response[typing.Type[None]]:
         """Delete a user by id, email or external_id, returning a `Response`.
         The user id is the MagicBell user id.
-        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.  # noqa: E501
+        Alternatively, provide an id like `email:theusersemail@example.com` or `external_id:theusersexternalid` as the user id.
         We will delete the user completely 7 days after.
         If the user makes a request to the API, the deletion will be canceled.
         This will happen when the notification inbox for this user is loaded in your app, for example.

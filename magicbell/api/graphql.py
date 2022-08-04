@@ -16,7 +16,7 @@ class GraphQLAPI(BaseAPI):
     ) -> typing.Dict:
         """Query the GraphQL API, sends the X-MAGICBELL-API-KEY and X-MAGICBELL-SECRET-KEY headers.
 
-        Use `user_query` if you want to send the X-MAGICBELL-API-KEY and X-MAGICBELL-USER-HMAC headers.  # noqa: E501
+        Use `user_query` if you want to send the X-MAGICBELL-API-KEY and X-MAGICBELL-USER-HMAC headers.
         """
         return (await self.query_detailed(query=query, variables=variables)).json_content()
 
@@ -25,7 +25,7 @@ class GraphQLAPI(BaseAPI):
     ) -> Response[typing.Type[None]]:
         """Query the GraphQL API, sends the X-MAGICBELL-API-KEY and X-MAGICBELL-SECRET-KEY headers.
 
-        Use `user_query` if you want to send the X-MAGICBELL-API-KEY and X-MAGICBELL-USER-HMAC headers.  # noqa: E501
+        Use `user_query` if you want to send the X-MAGICBELL-API-KEY and X-MAGICBELL-USER-HMAC headers.
         """
         return await self._query(
             headers=self.configuration.get_general_headers(), query=query, variables=variables
