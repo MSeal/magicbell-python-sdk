@@ -15,10 +15,11 @@ nav:
       - 'UserAPI': reference/user-api.md
       - 'ProjectAPI': reference/project-api.md
       - 'GraphQLAPI': reference/graphql-api.md
-
-# Material theme config
 repo_url: https://github.com/noteable-io/magicbell-python-sdk
 repo_name: noteable-io/magicbell-python-sdk
+edit_uri: edit/main/docs/
+
+# Material theme config
 theme:
   name: material
   custom_dir: overrides
@@ -45,3 +46,14 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/noteable_io
+    - icon: fontawesome/brands/github
+      link: https://github.com/noteable-io
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/noteable-io/
+    - icon: fontawesome/brands/medium
+      link: https://medium.com/noteableio
