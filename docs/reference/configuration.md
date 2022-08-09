@@ -1,0 +1,1 @@
+:::magicbell.configuration.Configuration

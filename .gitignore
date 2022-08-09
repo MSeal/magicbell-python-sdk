@@ -59,6 +59,9 @@ venv/
 # Sphinx documentation
 docs/_build/
 
+# mkdocs
+site/
+
 # PyBuilder
 target/
 

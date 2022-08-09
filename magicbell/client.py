@@ -9,10 +9,11 @@ from .configuration import Configuration
 class MagicBell:
     """Central class for interacting with the MagicBell API.
     To be used as an asynchronous context manager.
-    If an asynchronous context manager isn't feasible, then the `connect` and `disconnect` methods can be used.  # noqa: E501
+    If an asynchronous context manager isn't feasible, then the `connect` and `disconnect` methods can be used.
 
     Examples
     --------
+
     >>> async with MagicBell() as mb:
     >>>    projects = (await mb.projects.list_projects()).projects
     >>>    for project in projects:
@@ -41,7 +42,9 @@ class MagicBell:
         configuration : Configuration, optional
             Configuration to use for the API.
             If not provided, a default configuration will be used.
-            The default configuration will try to load configuration from environment variables using the `MAGICBELL_` prefix.  # noqa: E501
+            The default configuration will try to load configuration from environment variables using the `MAGICBELL_` prefix.
+        http_client : httpx.AsyncClient, optional
+            HTTP client to use for API requests. This is generally used for testing.
         """
 
         self.configuration = configuration or Configuration()
