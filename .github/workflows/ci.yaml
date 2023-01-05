@@ -26,6 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry export -f requirements.txt --without-hashes --with dev > /tmp/requirements.txt
+          sed -i 's/\[.*\]//g' /tmp/requirements.txt
           pip install --constraint=/tmp/requirements.txt nox_poetry
       - name: Run tests
         run: nox -s test-${{ matrix.python_version }}
@@ -47,6 +48,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry export -f requirements.txt --without-hashes --with dev > /tmp/requirements.txt
+          sed -i 's/\[.*\]//g' /tmp/requirements.txt
           pip install --constraint=/tmp/requirements.txt nox_poetry
       - name: Run lint
         run: nox -s lint

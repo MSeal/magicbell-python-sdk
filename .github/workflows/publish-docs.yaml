@@ -20,6 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry export -f requirements.txt --without-hashes --with dev > /tmp/requirements.txt
+          sed -i 's/\[.*\]//g' /tmp/requirements.txt
           pip install --constraint=/tmp/requirements.txt nox_poetry
       - name: Publish docs
         run: nox -s publish_docs
