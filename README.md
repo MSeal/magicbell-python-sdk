@@ -1,5 +1,7 @@
 # MagicBell-Python SDK
 
+⚠️ We no longer maintain this SDK.
+
 <p align="center"><img src="https://assets.noteable.io/github/2022-07-29/MB_logo_Purple_2800x660.png" width="50%" alt="magicbell logo purple"></p>
 <p align="center">
 This SDK provides convenient access to the <a href="https://magicbell.com/docs/rest-api/overview">MagicBell REST API</a> from applications written in Python. 
